@@ -1,10 +1,13 @@
 const express = require('express')
 const cors = require('cors')
 const helmet = require('helmet')
+const swaggerUI = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
 require('dotenv').config()
 
 const routerModels = require('./routes/models.router')
 const routerErrorHandler = require('./routes/errorhandler.router')
+const swaggerSpec = require('./utils/swagger')
 
 
 
@@ -42,6 +45,9 @@ Accept Json & form-urlencoded
 */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
+
+/* swagger config */
+app.use('/api/v1/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJSDoc(swaggerSpec)))
 
 /* 
     Tell everyone the state of your api
