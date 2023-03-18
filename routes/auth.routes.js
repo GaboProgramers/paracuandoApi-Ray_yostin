@@ -17,15 +17,12 @@ const { signUp, logIn, forgetPassword, restorePassword, userToken } = require('.
  *      Auth: 
  *          type: object
  *          properties:
- *              firs_tname:
+ *              first_name:
  *                  type: string
  *                  description: The firstname of the user
  *              last_name:
  *                  type: string
  *                  description: The lastname of the user
- *              username:
- *                  type: string
- *                  description: The username of the user
  *              email:
  *                  type: string
  *                  description: The email of the user
@@ -35,13 +32,11 @@ const { signUp, logIn, forgetPassword, restorePassword, userToken } = require('.
  *          required: 
  *              - first_name
  *              - last_name
- *              - username
  *              - email
  *              - password
  *          example:
  *              first_name: jon
  *              last_name: doe
- *              username: JonDoe
  *              email: jondoe21@gmail.com
  *              password: pass1234
  *              
@@ -74,19 +69,6 @@ const { signUp, logIn, forgetPassword, restorePassword, userToken } = require('.
  *                      example:
  *                        email: jondoe@gmail.com
  *                        password: pass1234
- *      parameters:
- *          - name: email
- *            in: query
- *            description: The User Email For Login
- *            required: true
- *            schema:
- *                type: string
- *          - name: password
- *            in: query
- *            description: The password for login
- *            required: true
- *            schema:
- *                type: string
  *      responses:
  *          200:
  *              description: sesion iniciada.
@@ -99,7 +81,7 @@ router.post('/login', logIn)
 
 /**
  * @swagger
- * /auth/signup:
+ *  /auth/sign-up:
  *  post:
  *      summary: create User
  *      tags: [Auth]
