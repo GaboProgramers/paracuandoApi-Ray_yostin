@@ -8,10 +8,8 @@ const { signupSchema, forgetPasswordSchema, restorePasswordSchema } = require('.
 
 const { signUp, logIn, forgetPassword, restorePassword, userToken } = require('../controllers/auth.controller')
 
+// ? CONFIGURACION DEL ESQUEMA
 
-router.post('/login', logIn)
-
-// * Documnetacion de Registro
 /**
  * @swagger
  * components:
@@ -49,9 +47,59 @@ router.post('/login', logIn)
  *              
  */
 
+// * Inicio de sesion
+
 /**
  * @swagger
- * /api/v1/auth/signup:
+ * /auth/login:
+ *  post:
+ *      summary: Iniciar Sesion
+ *      tags: [Auth]
+ *      requestBody: 
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          email: 
+ *                            type: string
+ *                            description: Correo del usuario para iniciar sesion
+ *                          password:
+ *                            type: string
+ *                            description: Contraseña del usuario para iniciar sesion
+ *                      required:
+ *                          - email
+ *                          - password
+ *                      example:
+ *                        email: jondoe@gmail.com
+ *                        password: pass1234
+ *      parameters:
+ *          - name: email
+ *            in: query
+ *            description: The User Email For Login
+ *            required: true
+ *            schema:
+ *                type: string
+ *          - name: password
+ *            in: query
+ *            description: The password for login
+ *            required: true
+ *            schema:
+ *                type: string
+ *      responses:
+ *          200:
+ *              description: sesion iniciada.
+ */
+
+
+router.post('/login', logIn)
+
+// * Documnetacion de Registro
+
+/**
+ * @swagger
+ * /auth/signup:
  *  post:
  *      summary: create User
  *      tags: [Auth]
@@ -65,12 +113,43 @@ router.post('/login', logIn)
  *      responses:
  *          200:
  *              description: new user Create
- *          404: 
- *              description: Datos Erroneos
- *          500: 
- *              description: Error Server
  */
+
 router.post('/sign-up', verifySchema(signupSchema, 'body'), signUp)
+
+// * Documentacion Olvido contraseña
+
+/**
+ * @swagger
+ * /auth/forget-password:
+ *  post:
+ *      summary: Olvido contraseña
+ *      tags: [Auth]
+ *      requestBody: 
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          email: 
+ *                            type: string
+ *                            description: Correo del usuario para iniciar sesion
+ *                      required:
+ *                          - email
+ *                      example:
+ *                        email: jondoe@gmail.com
+ *      parameters:
+ *          - name: email
+ *            in: query
+ *            description: The User Email For Login
+ *            required: true
+ *            schema:
+ *                type: string
+ *      responses:
+ *          200:
+ *              description: Email sended!, check your inbox
+ */
 
 router.post('/forget-password', verifySchema(forgetPasswordSchema, 'body'), forgetPassword)
 

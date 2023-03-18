@@ -67,4 +67,5 @@ routerErrorHandler(app)
 
 app.listen(PORT, () => {
   console.log(`Server on PORT: ${PORT}`)
+  console.log(`Version 1 Docs API en la Ruta http://localhost:${PORT}/api/v1/api-docs 📓`);
 })
