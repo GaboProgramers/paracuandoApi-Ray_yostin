@@ -135,6 +135,51 @@ router.post('/sign-up', verifySchema(signupSchema, 'body'), signUp)
 
 router.post('/forget-password', verifySchema(forgetPasswordSchema, 'body'), forgetPassword)
 
+// * Documentacion Cambio contraseña
+
+/**
+ * @swagger
+ * /auth/change-password/:token:
+ *  post:
+ *      summary: Cambiar la contraseña de un usuario
+ *      description: Cambia la contraseña de un usuario con el token proporcionado
+ *      tags: [Auth]
+ *      requestBody: 
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          password: 
+ *                            type: string
+ *                            description: password del usuario para cambiar
+ *                      required:
+ *                          - password
+ *                      example:
+ *                        password: pass1234
+ *      parameters:
+ *          - name: password
+ *            in: query
+ *            description: Token de Autenticacion del usuario
+ *            required: true
+ *            schema:
+ *                type: string
+ *          - name: token
+ *            in: path
+ *            description: Nueva contraseña del usuario
+ *            required: true
+ *            schema:
+ *                type: string
+ *      responses:
+*       200:
+*         description: Contraseña cambiada con éxito
+*       400:
+*         description: El token es inválido o la contraseña no cumple con los requisitos
+*       401:
+*         description: No se pudo autenticar el usuario
+*/
+
 router.post('/change-password/:token', verifySchema(restorePasswordSchema, 'body'), restorePassword)
 
 
