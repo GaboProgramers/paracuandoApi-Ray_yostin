@@ -1,32 +1,47 @@
-// 'use strict';
-// const { Op } = require('sequelize')
-// const { v4: uuid4 } = require('uuid')
-
-// /** @type {import('sequelize-cli').Migration} */
-// module.exports = {
-//   async up(queryInterface, Sequelize) {
-//     const transaction = queryInterface.sequelize.transaction()
-
-//     try {
-//       await queryInterface.bulkInsert('states', [
-//         {
-//           id: uuid4()
-//         }
-//       ], { transaction })
+'use strict';
+const { Op } = require('sequelize')
+const uuid = require('uuid')
 
 
-//     } catch (error) {
-//       await transaction.rollback()
-//       throw error
-//     }
-//   },
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    const transaction = queryInterface.sequelize.transaction()
 
-//   async down(queryInterface, Sequelize) {
-//     /**
-//      * Add commands to revert seed here.
-//      *
-//      * Example:
-//      * await queryInterface.bulkDelete('People', null, {});
-//      */
-//   }
-// };
+    const statesSeeds = [
+      {
+        id: uuid.v4(),
+        name: 'TEST',
+        description: 'SUPER TEST',
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    ]
+
+    try {
+      await queryInterface.bulkInsert('states', statesSeeds, { transaction })
+
+      await transaction.commit()
+
+    } catch (error) {
+
+      await transaction.rollback()
+      throw error
+    }
+  },
+
+  async down(queryInterface, /*Sequelize*/) {
+    const transaction = await queryInterface.sequelize.transaction()
+    try {
+      await queryInterface.bulkDelete('states', {
+        name: {
+          [Op.or]: ['medellin']
+        }
+      }, { transaction })
+      await transaction.commit()
+    } catch (error) {
+      await transaction.rollback()
+      throw error
+    }
+  }
+};
