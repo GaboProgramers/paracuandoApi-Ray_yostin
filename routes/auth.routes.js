@@ -201,6 +201,71 @@ router.post('/forget-password', verifySchema(forgetPasswordSchema, 'body'), forg
 router.post('/change-password/:token', verifySchema(restorePasswordSchema, 'body'), restorePassword)
 
 
+// * Documentacion Cambio contraseña
+
+/**
+ * @swagger
+ * /auth/me:
+  *   get:
+ *     summary: El usuario obtiene los datos de su cuenta
+ *     description: Obtiene los perfiles asociados a la cuenta del usuario autenticado
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       '200':
+ *         description: Datos obtenidos exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 results:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       description: ID del usuario autenticado
+ *                     first_name:
+ *                       type: string
+ *                       description: Nombre del usuario
+ *                     last_name:
+ *                       type: string
+ *                       description: Apellido del usuario
+ *                     email:
+ *                       type: string
+ *                       description: Correo electrónico del usuario
+ *                     username:
+ *                       type: string
+ *                       description: Nombre de usuario del usuario
+ *                     image_url:
+ *                       type: string
+ *                       description: URL de la imagen del usuario
+ *                     profiles:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: string
+ *                             description: ID del perfil
+ *                           user_id:
+ *                             type: string
+ *                             description: ID del usuario asociado al perfil
+ *                           role_id:
+ *                             type: integer
+ *                             description: ID del rol asociado al perfil
+ *                           created_at:
+ *                             type: string
+ *                             description: Fecha y hora de creación del perfil
+ *                           updated_at:
+ *                             type: string
+ *                             description: Fecha y hora de actualización del perfil
+ *       '401':
+ *         description: No se pudo autenticar al usuario
+ *       '403':
+ *         description: No tiene permisos para acceder a esta ruta
+*/
 
 router.get(
   '/me',
