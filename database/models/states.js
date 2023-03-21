@@ -3,37 +3,36 @@
 const { Model } = require('sequelize')
 
 module.exports = (sequelize, DataTypes) => {
-    class Cities extends Model {
+    class States extends Model {
         static associate(models) {
-            Cities.belongsTo(models.States, { as: 'states', foreignKey: 'cities_id' })
-            // Cities.hasMany(models.Publications, { as: 'publications', foreignKey: 'publications_id' })
+            States.belongsTo(models.States, { as: 'countries' })
         }
     }
 
-    Cities.init({
+    States.init({
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
             allowNull: false
         },
-        state_id: {
+        country_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             foreignKey: true,
             references: {
-                model: 'states',
+                model: 'countries',
                 key: 'id'
             },
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE'
         },
-        publications_id: {
+        cities_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             foreignKey: true,
             references: {
-                model: 'publications',
+                model: 'cities',
                 key: 'id'
             },
             onUpdate: 'CASCADE',
@@ -57,10 +56,10 @@ module.exports = (sequelize, DataTypes) => {
     },
         {
             sequelize,
-            modelName: 'Cities',
-            tableName: 'cities',
+            modelName: 'States',
+            tableName: 'states',
             underscored: true,
             timestamps: true
         })
-    return Cities
+    return States
 }
