@@ -6,13 +6,15 @@ module.exports = (sequelize, DataTypes) => {
   class Countries extends Model {
     static associate(models) {
       Countries.hasMany(models.Users, { as: 'users', foreignKey: 'country_id' })
-      // Countries.hasMany(models.States, { as: 'states', foreignKey: 'country_id' })
+      Countries.hasMany(models.States, { as: 'states', foreignKey: 'country_id' })
     }
   }
   Countries.init({
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true
     },
     name: {
       type: DataTypes.STRING

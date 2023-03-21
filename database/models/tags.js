@@ -3,13 +3,14 @@
 const { Model } = require('sequelize')
 
 module.exports = (sequelize, DataTypes) => {
-    class PublicationsType extends Model {
+    class Tags extends Model {
         static associate(models) {
-            // PublicationsType.hasMany(models.Publications, { as: 'publications', foreignKey: 'publicationsType_id' })
+            // Tags.hasMany(models.PublicationsTags, { as: 'publicationsTags', foreignKey: 'tags_id' })
+            // Tags.hasMany(models.Publications, { as: 'publications', foreignKey: 'publications_id' })
         }
     }
 
-    PublicationsType.init({
+    Tags.init({
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
@@ -30,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
                 notEmpty: true
             }
         },
+        image_url: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         created_at: {
             allowNull: false,
             type: DataTypes.DATE,
@@ -41,13 +46,10 @@ module.exports = (sequelize, DataTypes) => {
     },
         {
             sequelize,
-            modelName: 'PublicationsType',
-            tableName: 'publicationsType',
+            modelName: 'Tags',
+            tableName: 'tags',
             underscored: true,
-            timestamps: true,
-            scopes: {
-                view_public: { attributes: ['id', 'name', 'description'] }
-            }
+            timestamps: true
         })
-    return PublicationsType
+    return Tags
 }

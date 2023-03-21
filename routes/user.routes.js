@@ -8,11 +8,11 @@ router.get('/', getUsers)
 router.get(
   '/:id',
   passport.authenticate('jwt', { session: false }),
-  getUserById) 
+  getUserById)
 
-router.get('/:id/votes')
+/* router.get('/:id/votes')
 
-router.get('/:id/publications')
+router.get('/:id/publications') */
 
 router.put('/:id', getMyUser)
 

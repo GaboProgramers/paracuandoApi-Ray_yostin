@@ -13,7 +13,7 @@ function routerErrorHandler(app) {
   app.use(logErrors);
   app.use(handlerAuthError);
   app.use(ormErrorHandler);
-  app.use(errorHandler);
+  /* app.use(errorHandler); */
 
   app.use('*', async (request, response) => {
     try {

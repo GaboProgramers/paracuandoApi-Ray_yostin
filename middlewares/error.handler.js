@@ -19,17 +19,17 @@ function logErrors(err, req, res, next) {
   next(err);
 }
 
-function errorHandler(err, req, res, next) {
+/* function errorHandler(err, req, res, next) {
   let { status } = err;
 
   return res.status(status || 500).json({
     message: err.message,
     errorName: err.name,
 
-    /* Auxiliar Info -example in schemas compare*/
+    // Auxiliar Info -example in schemas compare
     details: err.details,
   });
-}
+} */
 
 function handlerAuthError(err, req, res, next) {
   if (err.status === 401 || err.status === 403) {
@@ -87,9 +87,9 @@ function ormErrorHandler(err, req, res, next) {
   }
 
   if (err instanceof QueryError ||
-      err instanceof UnknownConstraintError ||
-      err instanceof  AggregateError ||
-      err instanceof UniqueConstraintError) {
+    err instanceof UnknownConstraintError ||
+    err instanceof AggregateError ||
+    err instanceof UniqueConstraintError) {
     return res.status(409).json({
       statusCode: 409,
       name: err.name,
@@ -129,11 +129,11 @@ function ormErrorHandler(err, req, res, next) {
       parametros: err.parameters,
       // errorOriginal: err['original'],
       // sql: err['sql'],
-    //   stack: err.stack,
+      //   stack: err.stack,
     });
   }
 
   next(err);
 }
 
-module.exports = { logErrors, handlerAuthError, errorHandler, ormErrorHandler };
+module.exports = { logErrors, handlerAuthError, ormErrorHandler };
