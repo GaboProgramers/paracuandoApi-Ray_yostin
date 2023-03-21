@@ -1,25 +1,40 @@
 'use strict';
 
+const { Op } = require('sequelize');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+  async up(queryInterface, Sequelize) {
+    const transaction = await queryInterface.sequelize.transaction()
+    try {
+      await queryInterface.bulkInsert('cities', [
+        {
+          id: '1',
+          name: 'medellin',
+          created_at: new Date(),
+          updated_at: new Date()
+        }
+      ], { transaction })
+
+      await transaction.commit()
+    } catch (error) {
+      await transaction.rollback()
+      throw error
+    }
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+  async down(queryInterface, Sequelize) {
+    const transaction = await queryInterface.sequelize.transaction()
+    try {
+      await queryInterface.bulkDelete('cities', {
+        name: {
+          [Op.or]: ['medellin']
+        }
+      }, { transaction })
+      await transaction.commit()
+    } catch (error) {
+      await transaction.rollback()
+      throw error
+    }
   }
 };
