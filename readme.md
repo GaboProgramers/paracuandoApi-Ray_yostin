@@ -23,6 +23,12 @@ Una vez hecho eso, corre
 ```bash
   npx academlo-auth-api-starter paracuando-api-team-#
 ```
+para asegurarte de crear el starter ten en cuanta que ___paracuando-api-team-#___ ira el nombre que le daras ah la carpeta donde se creara el proyecto, tambien lo puedes hacer de esta manera para crear el proyecto en la carpeta ya creada..!!
+
+```bash
+  npx academlo-auth-api-starter .
+```
+Luego sigue el resto de pasos.
 
 ```bash
   npm install
