@@ -21,6 +21,10 @@ Si tienes dudas para que sirven las que son de __DATABASE_URI_ENV__, en el __not
 Una vez hecho eso, corre
 
 ```bash
+  npx academlo-auth-api-starter paracuando-api-team-#
+```
+
+```bash
   npm install
 ```
 
