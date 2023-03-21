@@ -5,29 +5,42 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Cities extends Model {
     static associate(models) {
-      Cities.belongsTo(models.States, { as: 'states', foreignKey: 'cities_id' })
-      /* Cities.hasMany(models.Publications, { as: 'publications', foreignKey: 'cities_id' }) */
+      // define association here
+      Cities.belongsTo(models.Cities, { as: 'states' })
     }
   }
-  Cities.init(
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        allowNull: false
-      },
-      state_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      name: DataTypes.STRING
+  Cities.init({
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      allowNull: false
+  },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+          notEmpty: true
+      }
     },
-    {
-      sequelize,
-      modelName: 'Cities',
-      tableName: 'cities',
-      underscored: true,
-      timestamps: true
-    });
+    state_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true,
+      references: {
+          model: 'states',
+          key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+    }
+
+  }, {
+    sequelize,
+    modelName: 'Cities',
+    tableName: 'cities',
+    underscored: true,
+    timestamps: true
+  });
   return Cities;
 };

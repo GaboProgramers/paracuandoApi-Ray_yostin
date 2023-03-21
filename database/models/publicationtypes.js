@@ -3,13 +3,18 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Tags extends Model {
+  class Publicationtypes extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
     static associate(models) {
       // define association here
     }
   }
-  Tags.init({
-    id: {
+  Publicationtypes.init({
+  id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
@@ -22,14 +27,13 @@ module.exports = (sequelize, DataTypes) => {
       notEmpty: true
   },
 },
-    description: DataTypes.STRING,
-    imagen_url: DataTypes.STRING
+    description: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Tags',
-    tableName: 'tags',
+    modelName: 'Publicationtypes',
+    tableName: 'publicationtypes',
     underscored: true,
     timestamps: true
   });
-  return Tags;
+  return Publicationtypes;
 };
