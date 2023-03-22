@@ -27,7 +27,18 @@ class ProfilesService {
     return profile
   }
 
-
+  async isAdmin(user_id) {
+    let profile = await models.Profiles.findOne({
+      where: {
+        user_id,
+        role_id: 2,
+      
+      }},{ raw: true })
+    if (!profile) throw new CustomError('User not found', 404, 'Not Found')
+    if (!profile.isAdmin) throw new CustomError('You are not an administrator', 401, 'Unauthorized')
+    return true
+  }
+// lo que no entiendo es que creo que necesitariamos un where: {role_id: 1 o 2 ya que esta en numeros los roles xd} ya
 }
 
 module.exports = ProfilesService
