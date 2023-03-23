@@ -1,4 +1,7 @@
 const express = require('express')
+const { getPublicationsTypesPaginations, getPublicationType, updatePublicationType } = require('../controllers/publicationsTypes.controller')
+const passport = require('../libs/passport')
+const { isUserAdmin } = require('../middlewares/auth.middlewares')
 const router = express.Router()
 
 // ? CONFIGURACION DEL ESQUEMA
@@ -45,7 +48,11 @@ const router = express.Router()
  *              description: vista paginada de todas las publicaciones
  */
 
-router.get('/')
+router.get(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  getPublicationsTypesPaginations
+)
 
 /**
  * @swagger
@@ -73,7 +80,11 @@ router.get('/')
  *              description: error case
  */
 
-router.get('/:id')
+router.get(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  getPublicationType
+)
 
 /**
  * @swagger
@@ -120,6 +131,10 @@ router.get('/:id')
  *              description: error
  */
 
-router.put('/:id')
+router.put('/:id',
+  passport.authenticate('jwt', { session: false }),
+  isUserAdmin,
+  updatePublicationType
+)
 
 module.exports = router

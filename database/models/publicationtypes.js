@@ -14,19 +14,19 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Publicationtypes.init({
-  id: {
+    id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
       allowNull: false
-  },
-  name: {
-  type: DataTypes.STRING,
-  allowNull: false,
-  validate: {
-      notEmpty: true
-  },
-},
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      },
+    },
     description: DataTypes.STRING
   }, {
     sequelize,

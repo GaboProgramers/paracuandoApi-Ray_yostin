@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class States extends Model {
     static associate(models) {
       // define association here
-      States.belongsTo(models.States, { as: 'countries' })
+      States.belongsTo(models.Countries, { as: 'countries', foreignKey: 'id' })
     }
   }
   States.init({
@@ -15,14 +15,14 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
       allowNull: false
-  },
-  country_id: {
+    },
+    country_id: {
       type: DataTypes.INTEGER,
-  },
-  name: {
+    },
+    name: {
       type: DataTypes.STRING,
 
-  },
+    },
   }, {
     sequelize,
     modelName: 'States',

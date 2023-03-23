@@ -1,4 +1,6 @@
 const express = require('express')
+const { getRolesPaginations } = require('../controllers/roles.controller')
+const passport = require('../libs/passport')
 const router = express.Router()
 
 // ? CONFIGURACION DEL ESQUEMA
@@ -33,6 +35,9 @@ const router = express.Router()
  *              description: Todos los roles succes
  */
 
-router.get('/')
+router.get('/',
+  passport.authenticate('jwt', { session: false }),
+  getRolesPaginations
+)
 
 module.exports = router

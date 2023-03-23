@@ -1,4 +1,6 @@
 /node_modules
 .env
 .env.db.docker
-text.js
+/text.js
+
+se crearon todos los controladores faltantes, se arreglo el middleware de auth, se modificaron las rutas con sus respectivas funciones, y de igual manera se crearon los servicios que faltaban.

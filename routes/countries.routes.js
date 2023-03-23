@@ -1,4 +1,6 @@
 const express = require('express')
+const { getCountryPaginations } = require('../controllers/country.controller')
+const passport = require('../libs/passport')
 const router = express.Router()
 
 // ? CONFIGURACION DEL ESQUEMA
@@ -31,7 +33,11 @@ const router = express.Router()
  *              description: vista paginada de todos los country
  */
 
-router.get('/',)
+router.get(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  getCountryPaginations
+)
 
 
 module.exports = router

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Cities extends Model {
     static associate(models) {
       // define association here
-      Cities.belongsTo(models.Cities, { as: 'states' })
+      Cities.belongsTo(models.States, { as: 'states', foreignKey: 'id' })
     }
   }
   Cities.init({
@@ -15,12 +15,12 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
       allowNull: false
-  },
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-          notEmpty: true
+        notEmpty: true
       }
     },
     state_id: {
@@ -28,8 +28,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       foreignKey: true,
       references: {
-          model: 'states',
-          key: 'id'
+        model: 'states',
+        key: 'id'
       },
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE'

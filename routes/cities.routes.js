@@ -1,4 +1,6 @@
 const express = require('express')
+const { getCitiesPaginations } = require('../controllers/cities.controller')
+const passport = require('../libs/passport')
 const router = express.Router()
 
 // ? CONFIGURACION DEL ESQUEMA
@@ -31,7 +33,10 @@ const router = express.Router()
  *              description: vista paginada
  */
 
-router.get('/')
+router.get('/',
+  passport.authenticate('jwt', { session: false }),
+  getCitiesPaginations
+)
 
 
 module.exports = router

@@ -1,4 +1,6 @@
 const express = require('express')
+const { getStatesPaginations } = require('../controllers/states.controller')
+const passport = require('../libs/passport')
 const router = express.Router()
 
 // ? CONFIGURACION DEL ESQUEMA
@@ -33,6 +35,10 @@ const router = express.Router()
  *              description: Todos los states succes
  */
 
-router.get('/')
+router.get(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  getStatesPaginations
+)
 
 module.exports = router

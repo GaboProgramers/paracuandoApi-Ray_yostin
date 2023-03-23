@@ -1,4 +1,7 @@
 const express = require('express')
+const { getTagsPaginations, addTags, getTag } = require('../controllers/tags.controller')
+const passport = require('../libs/passport')
+const { isUserAdmin } = require('../middlewares/auth.middlewares')
 const router = express.Router()
 
 /**
@@ -42,7 +45,11 @@ const router = express.Router()
  *              description: vista paginada de todas las publicaciones
  */
 
-router.get('/',)
+router.get(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  getTagsPaginations
+)
 
 /**
  * @swagger
@@ -84,7 +91,12 @@ router.get('/',)
  *              description: error
  */
 
-router.post('/')
+router.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  isUserAdmin,
+  addTags
+)
 
 /**
  * @swagger
@@ -112,7 +124,11 @@ router.post('/')
  *              description: error case
  */
 
-router.get('/:id',)
+router.get(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  getTag
+)
 
 /**
  * @swagger

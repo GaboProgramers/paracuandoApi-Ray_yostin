@@ -1,6 +1,6 @@
 const models = require('../database/models')
 const { Op } = require('sequelize')
-const  { CustomError }  = require('../utils/helpers')
+const { CustomError } = require('../utils/helpers')
 
 class CountriesService {
 
@@ -35,7 +35,7 @@ class CountriesService {
     return countries
   }
 
-  async createCountry({name}) {
+  async createCountry({ name }) {
     const transaction = await models.sequelize.transaction()
     try {
       let newCountry = await models.Countries.create({
@@ -49,6 +49,7 @@ class CountriesService {
       throw error
     }
   }
+
   //Return Instance if we do not converted to json (or raw:true)
   async getCountryOr404(id) {
     let country = await models.Countries.findByPk(id, { raw: true })
@@ -59,6 +60,16 @@ class CountriesService {
   //Return not an Instance raw:true | we also can converted to Json instead
   async getCountry(id) {
     let country = await models.Countries.findByPk(id)
+    if (!country) throw new CustomError('Not found Country', 404, 'Not Found')
+    return country
+  }
+
+  async getCountrys() {
+    let country = await models.Countries.findByPk({
+      where: {
+        name: 'colombia'
+      }
+    }, { raw: true })
     if (!country) throw new CustomError('Not found Country', 404, 'Not Found')
     return country
   }
