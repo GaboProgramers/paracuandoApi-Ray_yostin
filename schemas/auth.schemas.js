@@ -15,9 +15,16 @@ const restorePasswordSchema = Joi.object({
   password: Joi.string().required()
 })
 
+const validTagsCreate = Joi.object({
+  name: Joi.string().required(),
+  description: Joi.string().required(),
+  imagen_url: Joi.string().required()
+})
+
 
 module.exports = {
   signupSchema,
   forgetPasswordSchema,
-  restorePasswordSchema
+  restorePasswordSchema,
+  validTagsCreate
 }

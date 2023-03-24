@@ -35,7 +35,7 @@ class ProfilesService {
       }
     }, { raw: true })
 
-    if (!profile) throw new CustomError('You are not an administrator', 403, 'Permission denegat')
+    if (!profile) throw new CustomError('You are not an administrator', 403, 'Permission Denied')
 
     return true
   }

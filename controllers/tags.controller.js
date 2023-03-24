@@ -23,8 +23,8 @@ const getTagsPaginations = async (request, response, next) => {
 
 const addTags = async (request, response, next) => {
   try {
-    let { body } = request
-    let tag = await tagsServices.createTags(body)
+    let { name, description, imagen_url } = request.body
+    let tag = await tagsServices.createTags({ name, description, imagen_url })
 
     return response
       .status(201)

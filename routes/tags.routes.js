@@ -2,6 +2,8 @@ const express = require('express')
 const { getTagsPaginations, addTags, getTag } = require('../controllers/tags.controller')
 const passport = require('../libs/passport')
 const { isUserAdmin } = require('../middlewares/auth.middlewares')
+const compareSchema = require('../schemas/joiSchema.checker')
+const { validTagsCreate } = require('../schemas/auth.schemas')
 const router = express.Router()
 
 /**
@@ -94,6 +96,7 @@ router.get(
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
+  compareSchema(validTagsCreate, 'body'),
   isUserAdmin,
   addTags
 )
@@ -174,7 +177,7 @@ router.get(
  *          400:
  *              description: error case
  */
-
+// ! faltan controladores
 router.put('/:id',)
 
 /**

@@ -40,7 +40,6 @@ class TagsService {
     const transaction = await models.sequelize.transaction()
     try {
       let newTags = await models.Tags.create({
-        id: 10,
         name: obj.name,
         description: obj.description,
         imagen_url: obj.imagen_url

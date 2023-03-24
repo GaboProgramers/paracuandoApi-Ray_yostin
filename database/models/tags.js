@@ -14,14 +14,14 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
       allowNull: false
-  },
-  name: {
-  type: DataTypes.STRING,
-  allowNull: false,
-  validate: {
-      notEmpty: true
-  },
-},
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      },
+    },
     description: DataTypes.STRING,
     imagen_url: DataTypes.STRING
   }, {
