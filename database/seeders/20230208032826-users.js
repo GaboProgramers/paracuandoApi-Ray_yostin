@@ -10,7 +10,7 @@ module.exports = {
 
     const usersSeeds = [
       {
-        id: uuid.v4(),
+        id: '5cd88a34-1781-4a97-a264-3c36326cb3e5',
         first_name: 'TEST',
         last_name: 'TEST LN',
         email: 'example@academlo.com',
@@ -20,7 +20,7 @@ module.exports = {
         updated_at: new Date(),
       },
       {
-        id: uuid.v4(),
+        id: '7d9c0523-3dcf-4729-a662-ca860e5347ed',
         first_name: 'TEST1',
         last_name: 'TEST1 LN',
         email: 'example1@academlo.com',
