@@ -39,6 +39,7 @@ exports.getUserById = async (req, res, next) => {
   }
 
 }
+
 exports.getMyUser = async (req, res, next) => {
   try {
     let { id } = req.user.id
@@ -51,6 +52,7 @@ exports.getMyUser = async (req, res, next) => {
   }
 
 }
+
 exports.patchUser = async (req, res, next) => {
   try {
     let { id } = req.user.id

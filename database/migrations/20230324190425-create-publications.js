@@ -4,9 +4,9 @@ module.exports = {
     await queryInterface.createTable('publications', {
       id: {
         allowNull: false,
-        autoIncrement: true,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID
       },
       user_id: {
         type: Sequelize.UUID,
@@ -18,7 +18,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'RESTRICT'
       },
-      
+
       publication_type_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
