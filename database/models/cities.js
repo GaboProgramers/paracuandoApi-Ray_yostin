@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Cities extends Model {
     static associate(models) {
       // define association here
-      Cities.belongsTo(models.States, { as: 'states', foreignKey: 'id' })
+      Cities.belongsTo(models.States, { as: 'states', foreignKey: 'state_id' })
     }
   }
   Cities.init({

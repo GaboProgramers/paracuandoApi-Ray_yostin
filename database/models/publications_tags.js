@@ -3,25 +3,20 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class publications_tags extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class Publications_tags extends Model {
     static associate(models) {
-publications_tags.belongsTo(models.Tags, {as: 'tag', foreignKey: 'tag_id'})
-      publications_tags.belongsTo(models.Publications, {as: 'publication', foreignKey: 'publication_id'})
+      Publications_tags.belongsTo(models.Tags, { as: 'tag', foreignKey: 'tag_id' })
+      Publications_tags.belongsTo(models.Publications, { as: 'publication', foreignKey: 'publication_id' })
     }
   }
-  publications_tags.init({
+  Publications_tags.init({
     publication_id: {
       type: DataTypes.UUIDV4,
-      primaryKey:true                 
+      primaryKey: true
     },
     tag_id: {
       type: DataTypes.INTEGER,
-      primaryKey:true                 
+      primaryKey: true
     }
   }, {
     sequelize,
@@ -31,12 +26,12 @@ publications_tags.belongsTo(models.Tags, {as: 'tag', foreignKey: 'tag_id'})
     timestamps: true,
     scopes: {
       view_public: {
-        attributes: ['publication_id','tag_id','created_at', 'updated_at']
+        attributes: ['publication_id', 'tag_id', 'created_at', 'updated_at']
       },
       no_timestamps: {
         attributes: { exclude: ['created_at', 'updated_at'] }
       },
     },
   });
-  return publications_tags;
+  return Publications_tags;
 };
