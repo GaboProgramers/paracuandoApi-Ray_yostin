@@ -1,5 +1,6 @@
 'use strict';
 const { Op } = require('sequelize');
+const uuid = require('uuid')
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -9,6 +10,7 @@ module.exports = {
         'tags',
         [
           {
+          
             description: 'Ropa y Accesorios',
             name: 'Ropa y Accesorios',
             imagen_url: 'imagen.jpg',
@@ -16,6 +18,7 @@ module.exports = {
             updated_at: new Date(),
           },
           {
+          
             description: 'Deportes',
             name: 'Deportes',
             imagen_url: 'imagen.jpg',
@@ -23,6 +26,7 @@ module.exports = {
             updated_at: new Date(),
           },
           {
+          
             description: 'Conciertos',
             name: 'Conciertos',
             imagen_url: 'imagen.jpg',
@@ -30,6 +34,7 @@ module.exports = {
             updated_at: new Date(),
           },
           {
+          
             description: 'Meet and Greet',
             name: 'Meet and Greet',
             imagen_url: 'imagen.jpg',
@@ -37,6 +42,7 @@ module.exports = {
             updated_at: new Date(),
           },
           {
+          
             description: 'E-sport',
             name: 'E-sport',
             imagen_url: 'imagen.jpg',
@@ -44,6 +50,7 @@ module.exports = {
             updated_at: new Date(),
           },
           {
+          
             description: 'Pop/Rock',
             name: 'Pop/Rock',
             imagen_url: 'imagen.jpg',
@@ -51,6 +58,7 @@ module.exports = {
             updated_at: new Date(),
           },
           {
+          
             description: 'Tecnologia',
             name: 'Tecnologia',
             imagen_url: 'imagen.jpg',
@@ -58,6 +66,7 @@ module.exports = {
             updated_at: new Date(),
           },
           {
+          
             description: 'Hogar y Decoracion',
             name: 'Hogar y Decoracion',
             imagen_url: 'imagen.jpg',
@@ -65,6 +74,7 @@ module.exports = {
             updated_at: new Date(),
           },
           {
+          
             description: 'Abastecimiento',
             name: 'Abastecimiento',
             imagen_url: 'imagen.jpg',
