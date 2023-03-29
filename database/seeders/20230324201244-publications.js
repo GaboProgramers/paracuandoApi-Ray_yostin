@@ -20,7 +20,7 @@ module.exports = {
             reference_link: 'referencia1',
             created_at: new Date(),
             updated_at: new Date(),
-          },
+          },/* 
           {
             id: uuid.v4(),
             user_id: '7d9c0523-3dcf-4729-a662-ca860e5347ed',
@@ -44,7 +44,7 @@ module.exports = {
             reference_link: 'referencia3',
             created_at: new Date(),
             updated_at: new Date(),
-          },
+          }, */
         ],
         { transaction }
       );

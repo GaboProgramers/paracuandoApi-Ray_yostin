@@ -16,17 +16,37 @@ module.exports = (sequelize, DataTypes) => {
   Publications.init({
     id: {
       type: DataTypes.UUID,
+      allowNull: false,
       primaryKey: true
     },
     user_id: {
-      type: DataTypes.UUID
+      type: DataTypes.UUID,
+      allowNull: false
     },
-    publication_type_id: DataTypes.INTEGER,
-    city_id: DataTypes.INTEGER,
-    title: DataTypes.STRING,
-    description: DataTypes.STRING,
-    context: DataTypes.TEXT,
-    reference_link: DataTypes.TEXT
+    publication_type_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    city_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    context: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    reference_link: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Publications',
