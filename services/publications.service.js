@@ -1,7 +1,8 @@
-const { Op } = require('sequelize')
+const { Op, cast, literal } = require('sequelize')
 const models = require('../database/models')
 const { CustomError } = require('../utils/helpers')
 const { v4: uuid4 } = require('uuid');
+const uuid = require('uuid')
 // const { CustomError } = require('../utils/helpers')
 
 class PublicationsService {
@@ -10,24 +11,30 @@ class PublicationsService {
   }
 
   async findAndCount(query) {
+    const { limit, offset, tags } = query
+
     const options = {
-      where: {},
+      where:{},
+      attributes: {
+        include: [
+          [cast(literal('(SELECT COUNT(*) FROM "votes" WHERE "votes"."publication_id" = "Publications"."id")'), 'integer'), 'votes_count']
+        ]
+      }
     }
 
-    const { limit, offset } = query
     if (limit && offset) {
       options.limit = limit
       options.offset = offset
     }
 
-    const { id } = query
-    if (id) {
-      options.where.id = id
+    const { title } = query
+    if (title) {
+      options.where.title = { [Op.iLike]: `%${title}%` }
     }
 
-    const { name } = query
-    if (name) {
-      options.where.name = { [Op.iLike]: `%${name}%` }
+    const { description } = query
+    if (description) {
+      options.where.description = { [Op.iLike]: `%${description}%` }
     }
 
     //Necesario para el findAndCountAll de Sequelize
@@ -37,53 +44,52 @@ class PublicationsService {
     return publications
   }
 
-  async createPublication(obj) {
+  async createPublication({ profile_id, publication_type_id, title, description, content, tags }) {
     const transaction = await models.sequelize.transaction()
 
     try {
-      let newPublications = await models.Publications.create({
-        id: uuid4(),
-        publication_type_id: obj.publication_type_id,
-        city_id: obj.city_id,
-        title: obj.title,
-        user_id: obj.user_id,
-        description: obj.description,
-        context: obj.context,
-        reference_link: obj.reference_link
+      let newPublication = await models.Publications.create({
+        id: uuid.v4(),
+        user_id: profile_id,
+        publication_type_id: publication_type_id,
+        title: title,
+        description: description,
+        content: content,
+        city_id: 'DEFAULT_CITY',
       }, { transaction })
 
-      await transaction.commit()
-      return newPublications
+      /*--->        Aquí añadimos las tags         <--- */
 
+      /* Primero encontramos las tags que nos enviaron en el body como tags=1,2,5,8,10  */		
+
+      if (tags){
+        let arrayTags = tags.split(',')
+        let findedTags = await models.Tags.findAll({
+          where: { id: arrayTags },
+          attributes: ['id'],
+          raw: true,
+        })
+
+        /* Si son tags que sí existen, lo pasamos a la función que nos setea las relaciones */
+
+        if (findedTags.length > 0) {
+          let tags_ids = findedTags.map(tag => tag['id'])
+          await newPublication.setTags(tags_ids, { transaction })
+        }
+      }
+		
+      /* Listo  */
+      
+
+      await transaction.commit()
+      return newPublication
     } catch (error) {
       await transaction.rollback()
       throw error
     }
   }
 
-  // async getPublicationType(id) {
-  //   let publicationType = await models.Publicationtypes.findByPk(id)
-  //   if (!publicationType) throw new CustomError('Not found PublicationType', 404, 'Not Found')
-  //   return publicationType
-  // }
 
-  // async updatedPublicationType(id, obj) {
-  //   const transaction = await models.sequelize.transaction()
-  //   try {
-  //     let publicationType = await models.Publicationtypes.findByPk(id)
-
-  //     if (!publicationType) throw new CustomError('Not found PublicationType', 404, 'Not Found')
-
-  //     let updatedPublicationType = await publicationType.update(obj, { transaction })
-
-  //     await transaction.commit()
-  //     return updatedPublicationType
-
-  //   } catch (error) {
-  //     await transaction.rollback()
-  //     throw error
-  //   }
-  // }
 }
 
 module.exports = PublicationsService
