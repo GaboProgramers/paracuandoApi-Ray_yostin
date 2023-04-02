@@ -1,37 +1,40 @@
 'use strict';
-const {Model} = require('sequelize');
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Publication_images extends Model {
+  class PublicationsImages extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Publication_images.belongsTo(models.Publications, {as: 'publication', foreignKey: 'publication_id'})
+      PublicationsImages.belongsTo(models.Publications, { as:'publication', foreignKey: 'publication_id'})
     }
   }
-  Publication_images.init({
+  PublicationsImages.init({
     publication_id: {
-      type:DataTypes.UUID,
-      primaryKey:true   
+      type: DataTypes.UUID,
+      primaryKey: true
     },
-    image_url: DataTypes.TEXT,
-    order: DataTypes.INTEGER
+    image_url: {
+      type: DataTypes.TEXT,
+      primaryKey: true
+    },
+    order: {
+      type: DataTypes.INTEGER,
+      validate:{
+        min:1,
+        max:3
+      }
+    },
   }, {
     sequelize,
-    modelName: 'Publication_images',
-    tableName: 'publication_images',
+    modelName: 'PublicationsImages',
+    tableName: 'publications_images',
     underscored: true,
-    timestamps: true,
-    scopes: {
-      view_public: {
-        attributes: ['publication_id','image_url','order','created_at', 'updated_at']
-      },
-      no_timestamps: {
-        attributes: { exclude: ['created_at', 'updated_at'] }
-      },
-    },
+    timestamps: true
   });
-  return Publication_images;
+  return PublicationsImages;
 };

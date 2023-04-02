@@ -1,4 +1,5 @@
 'use strict';
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
@@ -25,12 +26,12 @@ module.exports = {
           allowNull: false,
           type: Sequelize.INTEGER
         },
-        created_at: {
+        createdAt: {
           allowNull: false,
           type: Sequelize.DATE,
           field: 'created_at'
         },
-        updated_at: {
+        updatedAt: {
           allowNull: false,
           type: Sequelize.DATE,
           field: 'updated_at'

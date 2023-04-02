@@ -59,6 +59,25 @@ class TagsService {
     if (!tags) throw new CustomError('Not found Tags', 404, 'Not Found')
     return tags
   }
+  async removeTag(id) {
+    const transaction = await models.sequelize.transaction()
+    try {
+      let tag = await models.Tags.findByPk(id)
+
+      if (!tag) throw new CustomError('Not found Tag', 404, 'Not Found')
+
+      if (tag.image_url) throw new CustomError('Image Tag is on Cloud, must be deleted first', 400, 'Bad Request')
+
+      await tag.destroy({ transaction })
+
+      await transaction.commit()
+
+      return tag
+    } catch (error) {
+      await transaction.rollback()
+      throw error
+    }
+  }
 }
 
 module.exports = TagsService
