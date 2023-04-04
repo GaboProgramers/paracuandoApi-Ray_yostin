@@ -27,6 +27,13 @@ const corsOptions = {
     }
   }
 }
+if (process.env.NODE_ENV != 'test') {
+  app.listen(PORT, () => {
+    console.log(`Server on PORT: ${PORT}`)
+  })
+}
+
+module.exports = {app}
 
 if (process.env.NODE_ENV === 'production') {
   app.use(cors())
