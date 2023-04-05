@@ -2,34 +2,49 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('publicationtypes', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true
+    const transaction = await queryInterface.sequelize.transaction()
+    try {
+      await queryInterface.createTable('publication_types', {
+        id: {
+          allowNull: false,
+          autoIncrement: true,
+          primaryKey: true,
+          type: Sequelize.INTEGER
+        },
+        name: {
+          allowNull: false,
+          type: Sequelize.STRING,
+          unique: true
+        },
+        description: {
+          type: Sequelize.STRING,
+        },
+        createdAt: {
+          allowNull: false,
+          type: Sequelize.DATE,
+          field: 'created_at'
+        },
+        updatedAt: {
+          allowNull: false,
+          type: Sequelize.DATE,
+          field: 'updated_at'
         }
-      },
-      description: {
-        type: Sequelize.STRING
-      },
-      created_at: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updated_at: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
+      }, { transaction });
+
+      await transaction.commit()
+    } catch (error) {
+      await transaction.rollback()
+      throw error
+    }
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('publicationtypes');
+    const transaction = await queryInterface.sequelize.transaction()
+    try {
+      await queryInterface.dropTable('publication_types', { transaction })
+      await transaction.commit()
+    } catch (error) {
+      await transaction.rollback()
+      throw error
+    }
   }
 };

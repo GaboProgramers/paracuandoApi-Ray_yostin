@@ -19,7 +19,7 @@ function logErrors(err, req, res, next) {
   next(err);
 }
 
-/* function errorHandler(err, req, res, next) {
+function errorHandler(err, req, res, next) {
   let { status } = err;
 
   return res.status(status || 500).json({
@@ -29,7 +29,7 @@ function logErrors(err, req, res, next) {
     // Auxiliar Info -example in schemas compare
     details: err.details,
   });
-} */
+} 
 
 function handlerAuthError(err, req, res, next) {
   if (err.status === 401 || err.status === 403) {
@@ -136,4 +136,4 @@ function ormErrorHandler(err, req, res, next) {
   next(err);
 }
 
-module.exports = { logErrors, handlerAuthError, ormErrorHandler };
+module.exports = { logErrors, handlerAuthError, ormErrorHandler,errorHandler };

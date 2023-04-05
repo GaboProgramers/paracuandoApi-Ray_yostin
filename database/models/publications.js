@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Publications extends Model {
     static associate(models) {
       Publications.belongsTo(models.Users, { as: 'user', foreignKey: 'user_id' })
-      Publications.belongsTo(models.Publicationtypes, { as: 'publicationTypes', foreignKey: 'publication_type_id' })
+      Publications.belongsTo(models.Publication_types, { as: 'publicationTypes', foreignKey: 'publication_type_id' })
       Publications.belongsTo(models.Cities, { as: 'cities', foreignKey: 'city_id' })
       Publications.hasMany(models.PublicationsImages, { as: 'publicationImages', foreignKey: 'publication_id' })
       Publications.belongsToMany(models.Users, {

@@ -25,8 +25,8 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Publicationtypes',
-    tableName: 'publicationtypes',
+    modelName: 'Publication_types',
+    tableName: 'publication_types',
     underscored: true,
     timestamps: true
   });
